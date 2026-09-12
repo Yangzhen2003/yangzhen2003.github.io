@@ -352,8 +352,7 @@
   }
 }
 
-.author__wechat:hover .wechat-qr-popup,
-.author__wechat:focus-within .wechat-qr-popup {
+.wechat-qr-popup.is-visible {
   display: block;
   opacity: 1;
   visibility: visible;
