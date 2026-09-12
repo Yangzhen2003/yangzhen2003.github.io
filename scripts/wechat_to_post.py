@@ -1,12 +1,10 @@
 import argparse
+import html
 import os
 import re
 from datetime import datetime, timezone
-from urllib.parse import urlparse
 
 import requests
-from bs4 import BeautifulSoup
-from markdownify import markdownify as md
 
 
 HEADERS = {
@@ -21,77 +19,35 @@ def slugify(value: str) -> str:
     return value.strip("-_") or "post"
 
 
-def download_image(url: str, path: str) -> bool:
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=20)
-        response.raise_for_status()
-        with open(path, "wb") as f:
-            f.write(response.content)
-        return True
-    except Exception:
-        return False
+def extract_title(html_text: str) -> str:
+    match = re.search(
+        r'<h1[^>]*id="activity-name"[^>]*>(.*?)</h1>',
+        html_text,
+        re.DOTALL,
+    )
+    if not match:
+        match = re.search(r'<meta property="og:title" content="([^"]+)"', html_text)
+    if not match:
+        return "Untitled"
+    value = re.sub(r"<[^>]+>", "", match.group(1))
+    return html.unescape(value).strip() or "Untitled"
 
 
-def extract_publish_date(html: str) -> str:
-    match = re.search(r"create_time:\s*['\"]([\d\- :]+)['\"]", html)
+def extract_publish_date(html_text: str) -> str:
+    match = re.search(r"create_time:\s*['\"]([\d\- :]+)['\"]", html_text)
     if not match:
         return datetime.now(timezone.utc).date().isoformat()
     return match.group(1).strip().split()[0]
 
 
-def save_images(html_node, date: str, slug: str) -> None:
-    output_dir = "images/wechat"
-    os.makedirs(output_dir, exist_ok=True)
-
-    for index, img in enumerate(html_node.find_all("img"), start=1):
-        source = img.get("data-src") or img.get("src")
-        if not source or not source.startswith("http"):
-            continue
-
-        suffix = os.path.splitext(urlparse(source).path)[1]
-        if not suffix:
-            suffix = ".jpg"
-
-        filename = f"{date}-{slug}-{index}{suffix}"
-        local_path = os.path.join(output_dir, filename)
-        local_url = f"/images/wechat/{filename}"
-
-        if download_image(source, local_path):
-            img["src"] = local_url
-
-
-def fetch_article(url: str) -> dict:
+def fetch_metadata(url: str) -> tuple[str, str]:
     response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    title_node = soup.select_one("#activity-name") or soup.select_one("h1")
-    account_node = soup.select_one("#js_name")
-    content_node = soup.select_one("#js_content") or soup.select_one(".rich_media_content")
-
-    if content_node is None:
-        raise RuntimeError("Could not locate article content. WeChat may require a valid article URL.")
-
-    title = title_node.get_text(" ", strip=True) if title_node else "Untitled"
-    account = account_node.get_text(" ", strip=True) if account_node else ""
-    date = extract_publish_date(response.text)
-    slug = slugify(title)
-
-    save_images(content_node, date, slug)
-    content_md = md(str(content_node), heading_style="ATX")
-    content_md = re.sub(r"\n{3,}", "\n\n", content_md).strip()
-
-    return {
-        "title": title,
-        "account": account,
-        "date": date,
-        "slug": slug,
-        "content": content_md,
-    }
+    return extract_title(response.text), extract_publish_date(response.text)
 
 
-def build_post(data: dict, source_url: str) -> str:
-    escaped_title = data["title"].replace("\\", "\\\\").replace('"', '\\"')
+def build_post(title: str, source_url: str) -> str:
+    escaped_title = title.replace("\\", "\\\\").replace('"', '\\"')
     return f'''---
 title: "{escaped_title}"
 categories:
@@ -100,28 +56,20 @@ tags:
   - 公众号
 source: "{source_url}"
 ---
-
-{data["content"]}
 '''
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Import a WeChat article into a Jekyll post.")
+    parser = argparse.ArgumentParser(description="Import WeChat article metadata into a Jekyll post.")
     parser.add_argument("url", help="WeChat article URL")
     args = parser.parse_args()
 
     os.makedirs("_posts", exist_ok=True)
-    data = fetch_article(args.url)
-    path = f'_posts/{data["date"]}-{data["slug"]}.md'
-    if os.path.exists(path):
-        base, ext = os.path.splitext(path)
-        index = 2
-        while os.path.exists(f"{base}-{index}{ext}"):
-            index += 1
-        path = f"{base}-{index}{ext}"
+    title, date = fetch_metadata(args.url)
+    path = f"_posts/{date}-{slugify(title)}.md"
 
     with open(path, "w", encoding="utf-8") as f:
-        f.write(build_post(data, args.url))
+        f.write(build_post(title, args.url))
 
     print(f"Created {path}")
 
