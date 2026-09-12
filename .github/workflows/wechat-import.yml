@@ -2,7 +2,7 @@ name: Import WeChat Article
 
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled]
 
 permissions:
   contents: write
