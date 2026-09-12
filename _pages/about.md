@@ -1,13 +1,11 @@
 ---
 permalink: /
-title: "Hi, I'm Yang Zhen"
+title: "About Me"
 author_profile: true
 redirect_from:
   - /about/
   - /about.html
 ---
-
-## About Me
 
 Here is **Yang Zhen**. I am a first-year master's student in Journalism and Communication at Nanjing University, with a focus on computational communication.
 
