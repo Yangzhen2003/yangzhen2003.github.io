@@ -1,9 +1,10 @@
 # Basic Site Settings
+locale                    : "zh-CN"
 site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
 title                    : "YANGZHEN"
 title_separator          : "-"
 name                     : &name "YANGZHEN"
-description              : &description "Your Name's academic portfolio"
+description              : &description "Yang Zhen 的个人主页与博客"
 url                      : https://yangzhen2003.github.io
 repository               : "yangzhen2003/yangzhen2003.github.io"
 
@@ -12,22 +13,15 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "Yang Zhen"  
-  bio              : "Short biography for the left-hand sidebar"
+  bio              : "南京大学学生，记录学习、项目与生活。"
   location         : "Nanjing"
   employer         : "Nanjing University"
   email            : "1159219950@qq.com" 
+  wechat           : "BF93675"
+  wechat_qr      : "wechat-qr.png"
   
   # Repositories and software development
-  github           : "academicpages"
-
-  # Social media
-  twitter          : # Username for X / Twitter
-  vine             : # Username
-  weibo            : # Username
-  wikipedia        : # Username
-  xing             : # Username
-  youtube          : # Username
-  zhihu            : # Username
+  github           : "Yangzhen2003"
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
@@ -249,7 +243,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: Etc/UTC # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Shanghai # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
