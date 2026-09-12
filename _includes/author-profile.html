@@ -184,21 +184,3 @@
     </ul>
   </div>
 </div>
-<script>
-  document.querySelectorAll('.author__wechat').forEach(function (item) {
-    var popup = item.querySelector('.wechat-qr-popup');
-    if (!popup) return;
-    item.addEventListener('mouseenter', function () {
-      popup.classList.add('is-visible');
-    });
-    item.addEventListener('mouseleave', function () {
-      popup.classList.remove('is-visible');
-    });
-    item.addEventListener('focusin', function () {
-      popup.classList.add('is-visible');
-    });
-    item.addEventListener('focusout', function () {
-      popup.classList.remove('is-visible');
-    });
-  });
-</script>

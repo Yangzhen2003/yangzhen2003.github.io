@@ -1,5 +1,24 @@
 <script type="module" src="{{ base_path }}/assets/js/main.min.js"></script>
 
+<script>
+  document.querySelectorAll('.author__wechat').forEach(function (item) {
+    var popup = item.querySelector('.wechat-qr-popup');
+    if (!popup) return;
+    item.addEventListener('mouseenter', function () {
+      popup.classList.add('is-visible');
+    });
+    item.addEventListener('mouseleave', function () {
+      popup.classList.remove('is-visible');
+    });
+    item.addEventListener('focusin', function () {
+      popup.classList.add('is-visible');
+    });
+    item.addEventListener('focusout', function () {
+      popup.classList.remove('is-visible');
+    });
+  });
+</script>
+
 {% include analytics.html %}
 
 {% include comments-providers/scripts.html %}
