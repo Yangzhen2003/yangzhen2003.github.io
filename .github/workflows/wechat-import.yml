@@ -45,8 +45,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Yangzhen2003"
+          git config user.email "187119591+Yangzhen2003@users.noreply.github.com"
           git add _posts
           if git diff --cached --quiet; then
             echo "No changes to commit"
