@@ -32,6 +32,13 @@ def download_image(url: str, path: str) -> bool:
         return False
 
 
+def extract_publish_date(html: str) -> str:
+    match = re.search(r"create_time:\s*['\"]([\d\- :]+)['\"]", html)
+    if not match:
+        return datetime.now(timezone.utc).date().isoformat()
+    return match.group(1).strip().split()[0]
+
+
 def save_images(html_node, date: str, slug: str) -> None:
     output_dir = "images/wechat"
     os.makedirs(output_dir, exist_ok=True)
@@ -67,7 +74,7 @@ def fetch_article(url: str) -> dict:
 
     title = title_node.get_text(" ", strip=True) if title_node else "Untitled"
     account = account_node.get_text(" ", strip=True) if account_node else ""
-    date = datetime.now(timezone.utc).date().isoformat()
+    date = extract_publish_date(response.text)
     slug = slugify(title)
 
     save_images(content_node, date, slug)

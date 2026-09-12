@@ -12,7 +12,9 @@ author_profile: true
   <article class="blog-card">
     <a class="blog-card__title" href="{{ target }}"{% if post.source %} target="_blank" rel="noopener"{% endif %}>{{ post.title }}</a>
     <div class="blog-card__meta">{{ post.date | date: "%Y-%m-%d" }}</div>
+    {% unless post.source %}
     <p class="blog-card__excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+    {% endunless %}
     <a class="blog-card__more" href="{{ target }}"{% if post.source %} target="_blank" rel="noopener"{% endif %}>{% if post.source %}Read on WeChat{% else %}Read More{% endif %}</a>
   </article>
   {% endfor %}
@@ -20,6 +22,3 @@ author_profile: true
 {% else %}
 <p class="blog-empty">No posts yet.</p>
 {% endif %}
-
-<p><a class="blog-card__more" href="https://github.com/Yangzhen2003/yangzhen2003.github.io/issues/new?template=blog-post.yml">Create a New Post</a></p>
-<p><a class="blog-card__more" href="https://github.com/Yangzhen2003/yangzhen2003.github.io/issues/new?template=wechat-import.yml">Import from WeChat</a></p>
