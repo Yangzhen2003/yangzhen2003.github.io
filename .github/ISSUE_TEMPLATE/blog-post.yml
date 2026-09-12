@@ -1,0 +1,15 @@
+name: New Blog Post
+description: Create a blog post by opening an issue.
+title: "文章标题"
+labels:
+  - blog-post
+body:
+  - type: textarea
+    id: content
+    attributes:
+      label: 正文
+      description: 在这里粘贴或撰写文章内容。支持 Markdown。
+      value: |
+        在这里写正文。
+    validations:
+      required: true

@@ -19,3 +19,5 @@ author_profile: true
 {% else %}
 <p class="blog-empty">No posts yet.</p>
 {% endif %}
+
+<p><a class="blog-card__more" href="https://github.com/Yangzhen2003/yangzhen2003.github.io/issues/new?template=blog-post.yml">Create a New Post</a></p>
