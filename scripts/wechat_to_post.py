@@ -103,6 +103,7 @@ def main() -> None:
     parser.add_argument("url", help="WeChat article URL")
     args = parser.parse_args()
 
+    os.makedirs("_posts", exist_ok=True)
     data = fetch_article(args.url)
     path = f'_posts/{data["date"]}-{data["slug"]}.md'
     if os.path.exists(path):
