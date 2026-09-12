@@ -21,3 +21,4 @@ author_profile: true
 {% endif %}
 
 <p><a class="blog-card__more" href="https://github.com/Yangzhen2003/yangzhen2003.github.io/issues/new?template=blog-post.yml">Create a New Post</a></p>
+<p><a class="blog-card__more" href="https://github.com/Yangzhen2003/yangzhen2003.github.io/issues/new?template=wechat-import.yml">Import from WeChat</a></p>
