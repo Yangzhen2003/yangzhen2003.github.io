@@ -36,14 +36,16 @@
       {% if author.email %}
         <li><a href="mailto:{{ author.email }}"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].email_label | default: "Email" }}</a></li>
       {% endif %}
-      {% if author.wechat %}
+      {% if author.wechat_qr %}
         <li class="author__wechat">
-          <span class="wechat-trigger"><i class="fab fa-fw fa-weixin icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].wechat_label | default: "WeChat" }}：{{ author.wechat }}</span>
-          {% if author.wechat_qr %}
-          <span class="wechat-qr-popup">
-            <img src="{{ author.wechat_qr | prepend: "/images/" | prepend: base_path }}" alt="WeChat QR code" />
+          <span class="wechat-trigger" title="{{ author.wechat }}">
+            <i class="fab fa-fw fa-weixin icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].wechat_label | default: "WeChat" }}
+            {% if author.wechat_qr %}
+            <span class="wechat-qr-popup">
+              <img src="{{ author.wechat_qr | prepend: "/images/" | prepend: base_path }}" alt="WeChat QR code" />
+            </span>
+            {% endif %}
           </span>
-          {% endif %}
         </li>
       {% endif %}
 
