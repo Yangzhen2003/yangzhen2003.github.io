@@ -328,7 +328,7 @@
 }
 
 .wechat-qr-popup {
-  display: block;
+  display: none;
   position: absolute;
   left: 100%;
   top: 0;
@@ -354,6 +354,7 @@
 
 .author__wechat:hover .wechat-qr-popup,
 .author__wechat:focus-within .wechat-qr-popup {
+  display: block;
   opacity: 1;
   visibility: visible;
 }
