@@ -332,8 +332,8 @@
   position: absolute;
   left: 100%;
   top: 0;
-  width: 150px;
-  margin-left: 10px;
+  width: 220px;
+  margin-left: 5px;
   padding: 6px;
   border: 1px solid var(--global-border-color);
   border-radius: $border-radius;
@@ -347,7 +347,7 @@
 
   img {
     display: block;
-    width: 100%;
+    width: 220px;
     height: auto;
   }
 }
