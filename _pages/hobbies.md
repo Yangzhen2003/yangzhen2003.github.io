@@ -9,6 +9,12 @@ author_profile: true
 
 I enjoy reading in my spare time. It is a way for me to explore new ideas, understand different perspectives, and slow down a little.
 
+One book that has been especially valuable to me is *Critical Thinking: Tools for Taking Charge of Your Learning and Your Life* (《批判性思维工具》) by Richard Paul and Linda Elder.
+
+<figure class="book-cover">
+  <img src="/images/books/critical-thinking-tools.png" alt="Critical Thinking: Tools for Taking Charge of Your Learning and Your Life">
+</figure>
+
 ## Food
 
 My parents are from a Hakka family and a Shantou family, so I grew up learning about both Hakka cuisine and Teochew food.
